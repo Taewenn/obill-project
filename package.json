@@ -1,0 +1,26 @@
+{
+    "name": "obill-project",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "api",
+        "app"
+    ],
+    "scripts": {
+        "dev": "npm run dev:api & npm run dev:app",
+        "dev:api": "npm run start:dev --workspace=@obill/api",
+        "dev:app": "npm run dev --workspace=@obill/app",
+        "build": "npm run build --workspaces",
+        "start": "npm run start:prod --workspace=@obill/api",
+        "test": "npm run test --workspaces",
+        "lint": "npm run lint --workspaces"
+    },
+    "keywords": [
+        "invoice",
+        "ocr",
+        "management",
+        "analytics"
+    ],
+    "author": "",
+    "license": "ISC"
+}
