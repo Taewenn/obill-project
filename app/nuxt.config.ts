@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     compatibilityDate: "2025-03-25",
-    modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@nuxt/image", "shadcn-nuxt", "@pinia/nuxt"],
+    modules: [
+        "@nuxtjs/tailwindcss",
+        "nuxt-icon",
+        "@nuxt/image",
+        "shadcn-nuxt",
+        "@pinia/nuxt",
+    ],
     app: {
         head: {
             title: "OBill - Invoice Management System",
@@ -35,5 +41,9 @@ export default defineNuxtConfig({
          * @default "./components/ui"
          */
         componentDir: "./components/ui",
+    },
+    components: {
+        global: true,
+        dirs: ["~/components"],
     },
 });

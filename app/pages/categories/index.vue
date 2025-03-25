@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // Composables
+import { storeToRefs } from "pinia";
 import { AlertDialog } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { useCategories } from "~/composables/useCategories";
+import { useCategoriesStore } from "~/stores/categories";
 
 // State
-const { categories } = useCategories();
+const categoriesStore = useCategoriesStore();
+const { categories } = storeToRefs(categoriesStore);
 const showDeleteDialog = ref(false);
 const selectedCategoryId = ref<string | null>(null);
 const showCreateDialog = ref(false);
@@ -22,14 +24,14 @@ const handleDelete = (id: string) => {
 
 const handleConfirmDelete = async () => {
     if (selectedCategoryId.value) {
-        await useCategories().deleteCategory(selectedCategoryId.value);
+        await categoriesStore.deleteCategory(selectedCategoryId.value);
         selectedCategoryId.value = null;
     }
 };
 
 const handleCreate = async () => {
     if (newCategoryName.value) {
-        await useCategories().createCategory(newCategoryName.value);
+        await categoriesStore.createCategory(newCategoryName.value);
         newCategoryName.value = "";
         showCreateDialog.value = false;
     }
@@ -37,7 +39,7 @@ const handleCreate = async () => {
 
 // Lifecycle hooks
 onMounted(async () => {
-    await useCategories().fetchCategories();
+    await categoriesStore.fetchCategories();
     isLoading.value = false;
 });
 </script>
@@ -48,8 +50,6 @@ onMounted(async () => {
             <h1 class="text-3xl font-bold">Categories</h1>
             <Button @click="showCreateDialog = true"> New Category </Button>
         </div>
-
-        <pre>{{ categories }}</pre>
 
         <!-- Table -->
         <div class="rounded-md border">

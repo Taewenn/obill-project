@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { useInvoicesStore } from "~/stores/invoices";
+
 // State
-const { totalAmount, amountByCategory, amountByDepartment } = useInvoices();
+const invoicesStore = useInvoicesStore();
+const { totalAmount, amountByCategory, amountByDepartment } =
+    storeToRefs(invoicesStore);
 
 // Loading
 const isLoading = ref(true);

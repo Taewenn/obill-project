@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Composables
 import { Button } from "~/components/ui/button";
-import { useInvoices } from "~/composables/useInvoices";
+import { useInvoicesStore } from "~/stores/invoices";
 
 // State
 const file = ref<File | null>(null);
@@ -22,7 +22,8 @@ const handleSubmit = async () => {
     try {
         const formData = new FormData();
         formData.append("file", file.value);
-        await useInvoices().createInvoice(formData);
+        const invoicesStore = useInvoicesStore();
+        await invoicesStore.createInvoice(formData);
         navigateTo("/invoices");
     } catch (error) {
         console.error("Error uploading invoice:", error);

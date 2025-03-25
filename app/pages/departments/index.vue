@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // Composables
+import { storeToRefs } from "pinia";
 import { AlertDialog } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { useDepartments } from "~/composables/useDepartments";
+import { useDepartmentsStore } from "~/stores/departments";
 
 // State
-const { departments } = useDepartments();
+const departmentsStore = useDepartmentsStore();
+const { departments } = storeToRefs(departmentsStore);
 const showDeleteDialog = ref(false);
 const selectedDepartmentId = ref<string | null>(null);
 const showCreateDialog = ref(false);
@@ -22,14 +24,14 @@ const handleDelete = (id: string) => {
 
 const handleConfirmDelete = async () => {
     if (selectedDepartmentId.value) {
-        await useDepartments().deleteDepartment(selectedDepartmentId.value);
+        await departmentsStore.deleteDepartment(selectedDepartmentId.value);
         selectedDepartmentId.value = null;
     }
 };
 
 const handleCreate = async () => {
     if (newDepartmentName.value) {
-        await useDepartments().createDepartment(newDepartmentName.value);
+        await departmentsStore.createDepartment(newDepartmentName.value);
         newDepartmentName.value = "";
         showCreateDialog.value = false;
     }
@@ -37,7 +39,7 @@ const handleCreate = async () => {
 
 // Lifecycle hooks
 onMounted(async () => {
-    await useDepartments().fetchDepartments();
+    await departmentsStore.fetchDepartments();
     isLoading.value = false;
 });
 </script>

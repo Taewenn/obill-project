@@ -1,11 +1,13 @@
 <script setup lang="ts">
 // Composables
+import { storeToRefs } from "pinia";
 import { AlertDialog } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
-import { useInvoices } from "~/composables/useInvoices";
+import { useInvoicesStore } from "~/stores/invoices";
 
 // State
-const { invoices } = useInvoices();
+const invoicesStore = useInvoicesStore();
+const { invoices } = storeToRefs(invoicesStore);
 const showDeleteDialog = ref(false);
 const selectedInvoiceId = ref<string | null>(null);
 
@@ -20,14 +22,14 @@ const handleDelete = (id: string) => {
 
 const handleConfirmDelete = async () => {
     if (selectedInvoiceId.value) {
-        await useInvoices().deleteInvoice(selectedInvoiceId.value);
+        await invoicesStore.deleteInvoice(selectedInvoiceId.value);
         selectedInvoiceId.value = null;
     }
 };
 
 // Lifecycle hooks
 onMounted(async () => {
-    await useInvoices().fetchInvoices();
+    await invoicesStore.fetchInvoices();
     isLoading.value = false;
 });
 </script>

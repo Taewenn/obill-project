@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { Toaster } from "vue-sonner";
-import { useTheme } from "~/composables/useTheme";
-
-// State
-const { theme } = useTheme();
 </script>
 
 <template>

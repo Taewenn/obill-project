@@ -1,9 +1,12 @@
 <script setup lang="ts">
 // Composables
-import { useInvoices } from "~/composables/useInvoices";
+import { storeToRefs } from "pinia";
+import { useInvoicesStore } from "~/stores/invoices";
 
 // State
-const { totalAmount, amountByCategory, amountByDepartment } = useInvoices();
+const invoicesStore = useInvoicesStore();
+const { totalAmount, amountByCategory, amountByDepartment } =
+    storeToRefs(invoicesStore);
 
 // Loading
 const isLoading = ref(true);
@@ -11,9 +14,9 @@ const isLoading = ref(true);
 // Lifecycle hooks
 onMounted(async () => {
     await Promise.all([
-        useInvoices().fetchTotalAmount(),
-        useInvoices().fetchAmountByCategory(),
-        useInvoices().fetchAmountByDepartment(),
+        invoicesStore.fetchTotalAmount(),
+        invoicesStore.fetchAmountByCategory(),
+        invoicesStore.fetchAmountByDepartment(),
     ]);
     isLoading.value = false;
 });
