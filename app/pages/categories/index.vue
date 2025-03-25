@@ -49,6 +49,8 @@ onMounted(async () => {
             <Button @click="showCreateDialog = true"> New Category </Button>
         </div>
 
+        <pre>{{ categories }}</pre>
+
         <!-- Table -->
         <div class="rounded-md border">
             <table class="w-full">

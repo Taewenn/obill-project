@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Composables
+import { Toaster } from "vue-sonner";
 import { useTheme } from "~/composables/useTheme";
 
 // State
@@ -10,10 +10,10 @@ const { theme } = useTheme();
     <div class="min-h-screen bg-background">
         <NuxtLayout>
             <NuxtPage />
+
+            <ClientOnly>
+                <Toaster />
+            </ClientOnly>
         </NuxtLayout>
     </div>
 </template>
-
-<style>
-@import "~/assets/css/globals.css";
-</style>

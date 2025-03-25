@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Composables
-import { useInvoices } from "~/composables/useInvoices";
-
 // State
 const { totalAmount, amountByCategory, amountByDepartment } = useInvoices();
 
