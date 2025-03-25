@@ -31,6 +31,7 @@
     "devDependencies": {
         "@nuxtjs/eslint-config-typescript": "^12.0.0",
         "@nuxtjs/tailwindcss": "^6.13.2",
+        "@pinia/nuxt": "^0.10.1",
         "@types/node": "^20.11.19",
         "autoprefixer": "^10.4.17",
         "eslint": "^8.56.0",
