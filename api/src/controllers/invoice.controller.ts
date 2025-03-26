@@ -26,6 +26,18 @@ export class InvoiceController {
     return this.invoiceService.create(createInvoiceDto, file);
   }
 
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadInvoice(@UploadedFile() file: Express.Multer.File) {
+    return this.invoiceService.processInvoice(file);
+  }
+
+  @Post('test-ocr')
+  @UseInterceptors(FileInterceptor('file'))
+  testOcr(@UploadedFile() file: Express.Multer.File) {
+    return this.invoiceService.testOcr(file);
+  }
+
   @Get()
   findAll() {
     return this.invoiceService.findAll();
@@ -60,5 +72,10 @@ export class InvoiceController {
   @Get('stats/by-department')
   getAmountByDepartment() {
     return this.invoiceService.getAmountByDepartment();
+  }
+
+  @Get(':id/ocr-data')
+  getOcrData(@Param('id') id: string) {
+    return this.invoiceService.getOcrData(id);
   }
 }

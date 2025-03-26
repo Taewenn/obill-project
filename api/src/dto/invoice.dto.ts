@@ -1,29 +1,75 @@
 import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsDate,
   IsNumber,
   IsOptional,
   IsString,
   IsUUID,
+  ValidateNested,
 } from 'class-validator';
+
+export class LineItemDto {
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsNumber()
+  @IsOptional()
+  quantity?: number;
+
+  @IsNumber()
+  @IsOptional()
+  unitPrice?: number;
+
+  @IsNumber()
+  @IsOptional()
+  total?: number;
+
+  @IsNumber()
+  @IsOptional()
+  tax?: number;
+}
 
 export class CreateInvoiceDto {
   @IsString()
-  fileName: string;
+  @IsOptional()
+  fileName?: string;
 
   @IsString()
-  filePath: string;
+  @IsOptional()
+  filePath?: string;
 
   @IsNumber()
-  amount: number;
+  @IsOptional()
+  amount?: number;
 
   @Type(() => Date)
   @IsDate()
-  date: Date;
+  @IsOptional()
+  date?: Date;
 
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsString()
+  @IsOptional()
+  vendor?: string;
+
+  @IsString()
+  @IsOptional()
+  invoiceNumber?: string;
+
+  @IsString()
+  @IsOptional()
+  currency?: string;
+
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => LineItemDto)
+  lineItems?: LineItemDto[];
 
   @IsUUID()
   @IsOptional()
@@ -55,6 +101,24 @@ export class UpdateInvoiceDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsString()
+  @IsOptional()
+  vendor?: string;
+
+  @IsString()
+  @IsOptional()
+  invoiceNumber?: string;
+
+  @IsString()
+  @IsOptional()
+  currency?: string;
+
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => LineItemDto)
+  lineItems?: LineItemDto[];
 
   @IsUUID()
   @IsOptional()
